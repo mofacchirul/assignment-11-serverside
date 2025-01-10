@@ -80,6 +80,9 @@ async function run() {
         })
         .send({ success: true });
     });
+
+
+
     app.post('/Volunteers', async (req, res) => {
       const applicationData = req.body;
       const result = await Volunteer_collection.insertOne(applicationData);
@@ -90,13 +93,13 @@ async function run() {
       const result = await query.toArray();
       res.send(result);
     });
-    app.get("/volunteers", async (req, res) => {
+    app.get("/Volunteers", async (req, res) => {
       const cousor = Volunteer_collection.find();
       const result = await cousor.toArray();
       res.send(result);
     });
 
-    app.get("/volunteer/:id", async (req, res) => {
+    app.get("/Volunteers/:id", async (req, res) => {
       const id = req.params.id;
       const query = { _id: new ObjectId(id) };
       const result = await Volunteer_collection.findOne(query);
@@ -120,14 +123,18 @@ async function run() {
     });
 
 
-   
+    
+    
 
-    app.delete("/Volunteers_apply/:id",varifytoken, async (req, res) => {
+    app.delete("/Volunteers_apply/:id", varifytoken, async (req, res) => {
       const id = req.params.id;
       const query = { _id: new ObjectId(id) };
-      const result = await Volunteer_apply.deleteOne(query);
+      const result = await Volunteer_apply.deleteOne(query); // Corrected collection
       res.send(result);
     });
+
+    
+
   } finally {
   }
 }
